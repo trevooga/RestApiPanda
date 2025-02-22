@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/order")
+@RequestMapping("/panda")
 @RestController
 public class PandaController {
 
@@ -30,7 +30,8 @@ public class PandaController {
     }
 
     @PostMapping("/newUser")
-    public User addNewUser(@RequestParam String username, @RequestParam String password) {
-        return userService.addNewUser(username, password);
+    public User addNewUser(@RequestParam String username, @RequestParam String password, @RequestParam String email) {
+        return userService.addNewUser(username, password, email);
     }
+
 }

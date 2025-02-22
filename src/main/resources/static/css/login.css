@@ -1,59 +1,168 @@
+/* Основные стили */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
+/* Заголовок */
 h1 {
     font-size: 48px;
     color: #000000;
     text-align: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 200;
+    margin-bottom: 20px;
 }
 
-form {
-    max-width: 300px;
-    margin: 50px auto;
-    padding: 20px;
+h2 {
+    font-size: 28px;
+    color: #000000;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 200;
+    margin-top: 20px; /* Отступ сверху */
+    letter-spacing: 4px; /* Интервал между символами */
+    line-height: -1; /* Высота строки для лучшей читаемости */
+    text-transform: uppercase; /* Все буквы заглавные (опционально) */
+}
+
+/* Форма */
+.form {
+    max-width: 400px;
+    width: auto;
+    padding: 30px;
     background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin: 20px;
 }
 
+.logo-container {
+    position: relative; /* Контейнер для позиционирования логотипа */
+    text-align: center; /* Центрирование логотипа */
+    z-index: 1; /* Логотип будет позади текста */
+}
+
+.logo {
+    position: absolute; /* Абсолютное позиционирование */
+    top: 0%; /* Позиционирование по вертикали */
+    left: 50%; /* Позиционирование по горизонтали */
+    transform: translate(-50%, -50%); /* Центрирование */
+    max-width: 350px; /* Размер логотипа */
+    height: auto;
+    opacity: 1; /* Прозрачность логотипа (опционально) */
+    z-index: 2; /* Логотип будет позади текста */
+}
+
+.container {
+    position: relative; /* Контейнер для текста */
+    z-index: -1; /* Текст будет поверх логотипа */
+    padding: 50px; /* Отступы внутри контейнера */
+    background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный фон (опционально) */
+    border-radius: 30px;
+    box-shadow:0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+    .logo {
+        max-width: 300px; /* Уменьшенный размер для мобильных */
+    }
+}
+
+
+
+/* Общие стили для всех полей ввода */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    text-align: center;
+    width: auto;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #085e16;
+    outline: none;
+}
+
+/* Лейблы */
 label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
+    color: #333;
 }
 
-input[type="text"],
-input[type="password"] {
-    width: 90%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
+/* Контейнер кнопок */
 .button-container {
-    padding-top: 15px;
+    padding-top: 20px;
     display: flex;
-    justify-content: center; /* Выравнивание по горизонтали */
-    align-items: center; /* Выравнивание по вертикали */
+    justify-content: center;
+    gap: 10px; /* Расстояние между кнопками */
 }
 
+/* Кнопки */
 button {
-    width: 90%;
-    padding: 10px;
+    width: 100%;
+    padding: 12px;
     background-color: #085e16;
     color: white;
     border: none;
     border-radius: 30px;
     cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
     background-color: #05300c;
+}
+
+/* Ссылки */
+a {
+    text-decoration: none;
+    color: #085e16;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #05300c;
+}
+
+/* Сообщения об ошибках */
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Модальное окно */
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background-color: #085e16;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.modal-footer {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }

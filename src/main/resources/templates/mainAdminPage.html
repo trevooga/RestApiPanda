@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+    <link th:href="@{/css/login.css}" rel="stylesheet" />
+</head>
+<body>
+    <h1>Admin page</h1>
+    
+    <a th:href="@{/login}">
+        <div class="button-container">
+            <button type="button">Log in form</button>
+        </div>
+
+    <a th:href="@{/register}">
+            <div class="button-container">
+            <button type="button">Register form</button>
+            </div>
+    </a>
+
+    <a th:href="@{/panda}">
+        <div class="button-container">
+        <button type="button">Orders</button>
+        </div>
+    </a>
+
+        <a th:href="@{/changePassword}">
+            <div class="button-container">
+                <button type="button">Change the password</button>
+            </div>
+        </a>
+    </form>
+</body>
+</html>

@@ -1,30 +1,58 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Войти в аккаунт</title>
     <link th:href="@{/css/login.css}" rel="stylesheet" />
 </head>
 <body>
-    <h1>Enter the system</h1>
-    
-    <form th:action="@{/login}" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required />
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required />
-        
-        <div class="button-container">
-            <button type="submit">Log in</button>
-        </div>
 
-        <a th:href="@{/register}">
-            <div class="button-container">
-            <button type="button">I don't have an account</button>
+        <div class="logo-container">
+            <img th:src="@{css/images/logo.png}" alt="Company Logo" class="logo">
+        
+        <div class="container">
+        <h2>PANDA FROM CHINA</h2>
+        <h1>Войти в аккаунт</h1>
+        
+        <!-- Форма входа -->
+        <form th:action="@{/login}" method="post">
+            <!-- Поле username -->
+            <div class="form-group">
+                <label for="username">Никнейм:</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    required
+                    placeholder="Введи свой никнейм"
+                >
             </div>
-        </a>
-    </form>
+
+            <!-- Поле password -->
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    required
+                    placeholder="Введи свой пароль"
+                >
+            </div>
+
+            <!-- Кнопка входа -->
+            <div class="button-container">
+                <button type="submit">Войти</button>
+            </div>
+
+            <!-- Ссылка на регистрацию -->
+            <div class="button-container">
+                <a th:href="@{/register}">
+                    <button type="button">Регистрация</button>
+                </a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
-

@@ -37,8 +37,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers("/register/**").permitAll() // Разрешаем доступ к /register/**
-                                .requestMatchers("/changePassword").permitAll() // Разрешаем доступ к /changePassword
-                                .requestMatchers("/order/**").hasAnyAuthority("WORKER", "ADMIN") // Только для WORKER и ADMIN
+                                .requestMatchers("/changePassword").hasAnyAuthority( "ADMIN")
+                                .requestMatchers("/adminpage").hasAnyAuthority( "ADMIN")// Разрешаем доступ к /changePassword
+                                .requestMatchers("/panda/**").hasAnyAuthority("WORKER", "ADMIN") // Только для WORKER и ADMIN
                                 .requestMatchers("/index").authenticated() // Только для аутентифицированных пользователей
                                 .anyRequest().permitAll() // Разрешаем доступ ко всем остальным URL
                 ).formLogin(
@@ -72,9 +73,11 @@ public class SecurityConfig {
                                             Authentication authentication) throws IOException, ServletException {
             Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
-            if (roles.contains("ADMIN") || roles.contains("WORKER")) {
-                response.sendRedirect("/order"); // Перенаправление для ADMIN и WORKER
-            } else {
+            if (roles.contains("WORKER")) {
+                response.sendRedirect("/panda"); // Перенаправление для ADMIN и WORKER
+            } else if (roles.contains("ADMIN")) {
+                response.sendRedirect("/adminpage");
+            } else if (roles.contains("USER")) {
                 response.sendRedirect("/index"); // Перенаправление для остальных
             }
         }
