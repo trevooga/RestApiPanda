@@ -7,25 +7,27 @@
     <link th:href="@{/css/login.css}" rel="stylesheet" />
 </head>
 <body>
+<div class="form-container">
+    <!-- Логотип в полукруге -->
+    <div class="logo-circle">
+        <img th:src="@{/css/images/logo.png}" alt="Company Logo" />
+    </div>
 
-        <div class="logo-container">
-            <img th:src="@{css/images/logo.png}" alt="Company Logo" class="logo">
-        
-        <div class="container">
+    <!-- Форма логина -->
+    <div class="form">
         <h2>PANDA FROM CHINA</h2>
         <h1>Войти в аккаунт</h1>
-        
-        <!-- Форма входа -->
+
         <form th:action="@{/login}" method="post">
             <!-- Поле username -->
             <div class="form-group">
                 <label for="username">Никнейм:</label>
                 <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    required
-                    placeholder="Введи свой никнейм"
+                        type="text"
+                        id="username"
+                        name="username"
+                        required
+                        placeholder="Введи свой никнейм"
                 >
             </div>
 
@@ -33,11 +35,11 @@
             <div class="form-group">
                 <label for="password">Пароль:</label>
                 <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    required
-                    placeholder="Введи свой пароль"
+                        type="password"
+                        id="password"
+                        name="password"
+                        required
+                        placeholder="Введи свой пароль"
                 >
             </div>
 
@@ -54,5 +56,6 @@
             </div>
         </form>
     </div>
+</div>
 </body>
 </html>

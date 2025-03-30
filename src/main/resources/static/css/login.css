@@ -10,159 +10,110 @@ body {
     min-height: 100vh;
 }
 
-/* Заголовок */
-h1 {
-    font-size: 48px;
-    color: #000000;
-    text-align: center;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-weight: 200;
-    margin-bottom: 20px;
+/* Контейнер формы */
+.form-container {
+    position: relative;
+    width: 500px;
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-    font-size: 28px;
-    color: #000000;
-    text-align: center;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: 200;
-    margin-top: 20px; /* Отступ сверху */
-    letter-spacing: 4px; /* Интервал между символами */
-    line-height: -1; /* Высота строки для лучшей читаемости */
-    text-transform: uppercase; /* Все буквы заглавные (опционально) */
+/* Логотип в полукруге */
+.logo-circle {
+    width: 150px;
+    height: 75px;
+    background-color: #fff;
+    border-radius: 75px 75px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -37.5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.logo-circle img {
+    width: 70px;
+    height: auto;
 }
 
 /* Форма */
 .form {
-    max-width: 400px;
-    width: auto;
-    padding: 30px;
-    background: #fff;
-    border-radius: 30px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    margin: 20px;
+    padding: 80px 40px 40px;
 }
 
-.logo-container {
-    position: relative; /* Контейнер для позиционирования логотипа */
-    text-align: center; /* Центрирование логотипа */
-    z-index: 1; /* Логотип будет позади текста */
-}
-
-.logo {
-    position: absolute; /* Абсолютное позиционирование */
-    top: 0%; /* Позиционирование по вертикали */
-    left: 50%; /* Позиционирование по горизонтали */
-    transform: translate(-50%, -50%); /* Центрирование */
-    max-width: 350px; /* Размер логотипа */
-    height: auto;
-    opacity: 1; /* Прозрачность логотипа (опционально) */
-    z-index: 2; /* Логотип будет позади текста */
-}
-
-.container {
-    position: relative; /* Контейнер для текста */
-    z-index: -1; /* Текст будет поверх логотипа */
-    padding: 50px; /* Отступы внутри контейнера */
-    background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный фон (опционально) */
-    border-radius: 30px;
-    box-shadow:0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Адаптация для мобильных устройств */
-@media (max-width: 768px) {
-    .logo {
-        max-width: 300px; /* Уменьшенный размер для мобильных */
-    }
-}
-
-
-
-/* Общие стили для всех полей ввода */
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+h1 {
+    font-size: 32px;
+    color: #000000;
     text-align: center;
-    width: auto;
-    padding: 12px;
+}
+
+h2 {
+    font-size: 20px;
+    color: #666666;
+    text-align: center;
+}
+
+/* Поля ввода */
+input[type="text"],
+input[type="password"] {
+    width: calc(100% - 30px);
+    padding: 15px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 30px;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
+    border-radius: 25px;
+    border: 1px solid #ccc; /* Возвращена обводка полей ввода */
 }
 
+/* Фокус на полях ввода */
 input[type="text"]:focus,
-input[type="email"]:focus,
 input[type="password"]:focus {
-    border-color: #085e16;
     outline: none;
-}
-
-/* Лейблы */
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #333;
+    border-color: #085e16;
+    box-shadow: 0 0 5px rgba(8, 94, 22, 0.5); /* Зеленая подсветка */
 }
 
 /* Контейнер кнопок */
 .button-container {
-    padding-top: 20px;
     display: flex;
-    justify-content: center;
-    gap: 10px; /* Расстояние между кнопками */
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-top: 20px;
 }
 
-/* Кнопки */
-button {
-    width: 100%;
-    padding: 12px;
+/* Верхняя кнопка (большая) */
+.button-container button[type="submit"] {
+    width: calc(100% - 40px);
+    padding: 15px;
     background-color: #085e16;
     color: white;
-    border: none;
-    border-radius: 30px;
+    border: none; /* Убрана обводка */
+    border-radius: 25px;
+    font-size: 18px;
     cursor: pointer;
-    font-size: 16px;
     transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #05300c;
+.button-container button[type="submit"]:hover{
+    transition: background-color 0.3s ease;
 }
 
-/* Ссылки */
-a {
-    text-decoration: none;
+/* Нижняя кнопка (маленькая) */
+.button-container a button {
+    width: auto;
+    padding: 10px 20px;
+    background-color: transparent;
     color: #085e16;
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: #05300c;
-}
-
-/* Сообщения об ошибках */
-.error-message {
-    color: #dc3545;
+    border: none;
+    border-radius: 20px;
     font-size: 14px;
-    margin-top: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* Модальное окно */
-.modal-content {
-    border-radius: 10px;
-}
-
-.modal-header {
+.button-container a button:hover {
     background-color: #085e16;
     color: white;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-.modal-footer {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
 }

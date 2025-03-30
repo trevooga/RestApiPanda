@@ -12,7 +12,6 @@ public class PandaService {
     @Autowired
     OrdersRepo ordersRepo;
 
-    @Transactional
     public List<Orders> getAllOrders() {
         return ordersRepo.findAll();
     }
