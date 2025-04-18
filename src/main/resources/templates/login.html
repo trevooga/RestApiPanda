@@ -7,55 +7,55 @@
     <link th:href="@{/css/login.css}" rel="stylesheet" />
 </head>
 <body>
-<div class="form-container">
-    <!-- Логотип в полукруге -->
-    <div class="logo-circle">
-        <img th:src="@{/css/images/logo.png}" alt="Company Logo" />
-    </div>
+    <div class="form-container">
+        <!-- Логотип в полукруге -->
+        <div class="logo-circle">
+            <img th:src="@{/css/images/logo.png}" alt="Company Logo" />
+        </div>
 
-    <!-- Форма логина -->
-    <div class="form">
-        <h2>PANDA FROM CHINA</h2>
-        <h1>Войти в аккаунт</h1>
+        <!-- Форма логина -->
+        <div class="form">
+            <h2>PANDA FROM CHINA</h2>
+            <h1>Войти в аккаунт</h1>
 
-        <form th:action="@{/login}" method="post">
-            <!-- Поле username -->
-            <div class="form-group">
-                <label for="username">Никнейм:</label>
-                <input
+            <form th:action="@{/login}" method="post">
+                <!-- Поле username -->
+                <div class="form-group">
+                    <label for="username">Никнейм:</label>
+                    <input
                         type="text"
                         id="username"
                         name="username"
                         required
                         placeholder="Введи свой никнейм"
-                >
-            </div>
+                    >
+                </div>
 
-            <!-- Поле password -->
-            <div class="form-group">
-                <label for="password">Пароль:</label>
-                <input
+                <!-- Поле password -->
+                <div class="form-group">
+                    <label for="password">Пароль:</label>
+                    <input
                         type="password"
                         id="password"
                         name="password"
                         required
                         placeholder="Введи свой пароль"
-                >
-            </div>
+                    >
+                </div>
 
-            <!-- Кнопка входа -->
-            <div class="button-container">
-                <button type="submit">Войти</button>
-            </div>
+                <!-- Кнопка входа -->
+                <div class="button-container">
+                    <button type="submit">Войти</button>
+                </div> 
 
-            <!-- Ссылка на регистрацию -->
-            <div class="button-container">
-                <a th:href="@{/register}">
-                    <button type="button">Регистрация</button>
-                </a>
-            </div>
-        </form>
+                <!-- Ссылка на регистрацию -->
+                <div class="button-container">
+                    <a th:href="@{/register}">
+                        <button type="button">Регистрация</button>
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 </body>
 </html>

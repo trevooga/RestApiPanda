@@ -19,9 +19,9 @@ public class UserService {
         this.userRepository = userRepository; // Внедрение UserRepository
     }
 
-    public User addNewUser(String user_name, String password, String email) {
+    public User addNewUser(String user_name, String password) {
         String encodedPassword = passwordEncoder.encode(password); // Кодируем пароль
-        return userRepository.save(new User(user_name, encodedPassword, email)); // Сохраняем нового пользователя
+        return userRepository.save(new User(user_name, encodedPassword)); // Сохраняем нового пользователя
     }
 
     @Transactional

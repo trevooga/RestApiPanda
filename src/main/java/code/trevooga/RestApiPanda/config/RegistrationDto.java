@@ -17,12 +17,6 @@ public class RegistrationDto {
 
     @Setter
     @Getter
-    @NotBlank(message = "email is required")
-    @Pattern(regexp = "^[a-zA-Z@.]+$", message = "Only Latin letters allowed")
-    private String email;
-
-    @Setter
-    @Getter
     @NotBlank(message = "Password is required")
     @Size(min = 5, message = "Minimum 5 characters required")
     private String password;

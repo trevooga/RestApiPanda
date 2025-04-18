@@ -18,11 +18,13 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String customer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private User customer;
 
     private int price;
 
-    public Orders(String customer, int price) {
+    public Orders(User customer, int price) {
         this.customer = customer;
         this.price = price;
     }

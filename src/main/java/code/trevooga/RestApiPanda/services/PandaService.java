@@ -1,6 +1,7 @@
 package code.trevooga.RestApiPanda.services;
 
 import code.trevooga.RestApiPanda.Entities.Orders;
+import code.trevooga.RestApiPanda.Entities.User;
 import code.trevooga.RestApiPanda.Interfaces.OrdersRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class PandaService {
     }
 
     @Transactional
-    public Orders addNewOrder(String customer, int price) {
+    public Orders addNewOrder(User customer, int price) {
         return ordersRepo.save(new Orders(customer, price));
     }
 }

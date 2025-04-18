@@ -68,8 +68,7 @@ public class AuthController {
         try {
             userService.addNewUser(
                     registrationDto.getUsername(),
-                    registrationDto.getPassword(),
-                    registrationDto.getEmail()
+                    registrationDto.getPassword()
             );
             redirectAttributes.addFlashAttribute(
                     "registrationSuccess",
