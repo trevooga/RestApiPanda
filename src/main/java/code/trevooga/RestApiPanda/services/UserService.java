@@ -4,6 +4,7 @@ import code.trevooga.RestApiPanda.Entities.User;
 import code.trevooga.RestApiPanda.Interfaces.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +33,10 @@ public class UserService {
         } else {
             return "Пользователь не найден";
         }
+    }
+    public int findUserIdByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"))
+                .getId();
     }
 }

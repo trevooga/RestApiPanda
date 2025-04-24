@@ -77,8 +77,8 @@ public class AuthController {
             return "redirect:/register";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute(
-                    "error",
-                    "Ошибка регистрации: " + e.getMessage()
+                    "RegistrationFailed",
+                    "Ошибка регистрации!"
             );
             return "redirect:/register";
         }

@@ -20,4 +20,5 @@ public class RegistrationDto {
     @NotBlank(message = "Password is required")
     @Size(min = 5, message = "Minimum 5 characters required")
     private String password;
+
 }

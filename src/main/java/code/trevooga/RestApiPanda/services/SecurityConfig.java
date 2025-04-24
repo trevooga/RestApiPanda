@@ -9,13 +9,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,24 +29,27 @@ public class SecurityConfig {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private UserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers("/register/**").permitAll() // Разрешаем доступ к /register/**
-                                .requestMatchers("/changePassword").hasAnyAuthority( "ADMIN")
-                                .requestMatchers("/adminpage").hasAnyAuthority( "ADMIN")// Разрешаем доступ к /changePassword
-                                .requestMatchers("/panda/**").hasAnyAuthority("WORKER", "ADMIN") // Только для WORKER и ADMIN
-                                .requestMatchers("/index").authenticated() // Только для аутентифицированных пользователей
-                                .anyRequest().permitAll() // Разрешаем доступ ко всем остальным URL
+                                .requestMatchers("/register/**").permitAll()
+                                .requestMatchers("/changePassword").hasAnyAuthority("ADMIN")
+                                .requestMatchers("/adminpage").hasAnyAuthority("ADMIN")
+                                .requestMatchers("/panda/**").permitAll()
+                                .requestMatchers("/index").authenticated()
+                                .anyRequest().permitAll()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .successHandler(customAuthenticationSuccessHandler()) // Кастомный обработчик успешного входа
+                                .successHandler(customAuthenticationSuccessHandler())
                                 .permitAll()
                 ).logout(
                         logout -> logout
@@ -58,7 +61,7 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationSuccessHandler customAuthenticationSuccessHandler() {
-        return new CustomAuthenticationSuccessHandler();
+        return new CustomAuthenticationSuccessHandler(userService);
     }
 
     @Autowired
@@ -66,20 +69,36 @@ public class SecurityConfig {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
-    // Кастомный обработчик успешного входа
     public static class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
+        private final UserService userService;
+
+        public CustomAuthenticationSuccessHandler(UserService userService) {
+            this.userService = userService;
+
+        }
+
         @Override
-        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                            Authentication authentication) throws IOException, ServletException {
+        public void onAuthenticationSuccess(HttpServletRequest request,
+                                            HttpServletResponse response,
+                                            Authentication authentication) throws IOException {
+
             Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+            String username = ((UserDetails) authentication.getPrincipal()).getUsername();
+            int userId = userService.findUserIdByUsername(username);
+
+            // Сохраняем username в сессию
+            request.getSession().setAttribute("username", username);
+            // Также можно сохранить userId, если он понадобится
+            request.getSession().setAttribute("userId", userId);
 
             if (roles.contains("WORKER")) {
-                response.sendRedirect("/panda"); // Перенаправление для ADMIN и WORKER
+                response.sendRedirect("/panda");
             } else if (roles.contains("ADMIN")) {
                 response.sendRedirect("/adminpage");
             } else if (roles.contains("USER")) {
-                response.sendRedirect("/index"); // Перенаправление для остальных
+                response.sendRedirect("/panda/lk/find?customer_id=" + userId);
             }
         }
     }
-}
+    }
