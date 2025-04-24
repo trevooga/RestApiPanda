@@ -1,24 +1,33 @@
 package code.trevooga.RestApiPanda.services;
 
+import jakarta.servlet.ServletException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Set;
 
 @Configuration
@@ -42,7 +51,7 @@ public class SecurityConfig {
                                 .requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/changePassword").hasAnyAuthority("ADMIN")
                                 .requestMatchers("/adminpage").hasAnyAuthority("ADMIN")
-                                .requestMatchers("/panda/**").permitAll()
+                                .requestMatchers("/panda/**").authenticated()
                                 .requestMatchers("/index").authenticated()
                                 .anyRequest().permitAll()
                 ).formLogin(
@@ -50,6 +59,7 @@ public class SecurityConfig {
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
                                 .successHandler(customAuthenticationSuccessHandler())
+                                .failureHandler(customAuthenticationFailureHandler())
                                 .permitAll()
                 ).logout(
                         logout -> logout
@@ -57,6 +67,11 @@ public class SecurityConfig {
                                 .permitAll()
                 );
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler customAuthenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
     }
 
     @Bean
@@ -69,6 +84,20 @@ public class SecurityConfig {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
+    public static class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {
+        @Override
+        public void onAuthenticationFailure(
+                HttpServletRequest request,
+                HttpServletResponse response,
+                AuthenticationException exception
+        ) throws IOException {
+            String errorMessage = "Неверный логин или пароль";
+            // Добавляем параметр в URL
+            response.sendRedirect("/login?error=" + URLEncoder.encode(errorMessage, StandardCharsets.UTF_8));
+        }
+    }
+
+
     public static class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
         private final UserService userService;
@@ -77,6 +106,8 @@ public class SecurityConfig {
             this.userService = userService;
 
         }
+
+
 
         @Override
         public void onAuthenticationSuccess(HttpServletRequest request,
@@ -97,8 +128,8 @@ public class SecurityConfig {
             } else if (roles.contains("ADMIN")) {
                 response.sendRedirect("/adminpage");
             } else if (roles.contains("USER")) {
-                response.sendRedirect("/panda/lk/find?customer_id=" + userId);
+                response.sendRedirect("/panda/lk/find?user=" + userId);
             }
         }
     }
-    }
+}

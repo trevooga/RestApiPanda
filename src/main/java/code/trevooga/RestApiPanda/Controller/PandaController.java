@@ -25,8 +25,10 @@ public class PandaController {
     }
 
     @PostMapping("/newOrder")
-    public Orders addNewOrder(@RequestParam User customer, @RequestParam int price) {
-        return pandaService.addNewOrder(customer, price);
+    public Orders addNewOrder(@RequestParam int price, @RequestParam String track,
+                              @RequestParam double deliveryprice, @RequestParam double weight,
+                              @RequestParam String nameofgood) {
+        return pandaService.addNewOrder(price, track, deliveryprice, weight, nameofgood);
     }
 
     @PostMapping("/newUser")

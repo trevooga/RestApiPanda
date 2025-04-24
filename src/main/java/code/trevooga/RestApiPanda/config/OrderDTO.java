@@ -8,7 +8,14 @@ import lombok.Setter;
 @Setter
 @Getter
 public class OrderDTO {
-    private Integer orderId;
+    private Integer id;
     private String username;
     private Integer price;
+    private String track;
+    private double deliveryprice;
+    private double weight;
+    private String nameofgood;
+
 }
+
+

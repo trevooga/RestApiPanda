@@ -14,8 +14,13 @@ import java.util.List;
 
 public interface OrdersRepo extends JpaRepository<Orders, Integer> {
 
-    @Query("SELECT new code.trevooga.RestApiPanda.config.OrderDTO(o.id, o.customer.username, o.price) " +
-            "FROM Orders o WHERE o.customer.id = :customer_id")
-    List<OrderDTO> findOrdersWithCustomerByCustomerId(@Param("customer_id") int customerId);
+    @Query("SELECT new code.trevooga.RestApiPanda.config.OrderDTO(o.id, o.customer.username, o.price, o.track, o.deliveryprice, o.weight, o.nameofgood) " +
+            "FROM Orders o WHERE o.customer.id = :userId")
+    List<OrderDTO> findOrdersWithCustomerByCustomerId(@Param("userId") int userId);
 
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE orders SET customer_id = :user WHERE track = :track", nativeQuery = true)
+    void assignOrderToCustomer(@Param("user") int customerId, @Param("track") String track);
 }

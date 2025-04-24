@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои заказы</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/orders.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="order-container container mt-5">
+    <h1 class="order-title mb-4">Заказы:
+        <span th:text="${session.username} ?: 'Неизвестный пользователь'"></span>
+    </h1>
+
+    <!-- Форма добавления трек-номера -->
+    <div class="mb-4 p-4 bg-light rounded">
+        <h3>Привязать новый заказ</h3>
+        <form th:action="@{/panda/lk/add-track}" method="post" class="row g-3">
+            <div class="col-md-8">
+                <input
+                        type="text"
+                        name="trackNumber"
+                        class="form-control"
+                        placeholder="Введите трек-номер"
+                        required
+                >
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary w-100">Привязать</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Блок с заказами -->
+    <div th:if="${#lists.isEmpty(orders)}" class="no-orders alert alert-info">
+        <p>Заказов не найдено</p>
+    </div>
+
+    <div th:if="${!#lists.isEmpty(orders)}">
+        <table class="orders-table table table-striped">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Цена</th>
+                <th>Имя</th>
+                <th>Трек</th>
+                <th>Доставка</th>
+                <th>Вес</th>
+                <th>Товар</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.id}"></td>
+                <td th:text="${order.price} + ' ₽'"></td>
+                <td th:text="${order.username}"></td>
+                <td th:text="${order.track}"></td>
+                <td th:text="${order.deliveryprice} + ' ₽'"></td>
+                <td th:text="${order.weight} + ' кг'"></td>
+                <td th:text="${order.nameofgood}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -54,6 +54,12 @@
                         <button type="button">Регистрация</button>
                     </a>
                 </div>
+
+                <div th:if="${param.error != null}" class="alert-danger">
+                    <span th:text="${#strings.unescapeJava(param.error[0])}"></span>
+                    <button class="close-btn" onclick="this.parentElement.remove()">×</button>
+                </div>
+
             </form>
         </div>
     </div>

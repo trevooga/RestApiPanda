@@ -24,8 +24,19 @@ public class Orders {
 
     private int price;
 
-    public Orders(User customer, int price) {
-        this.customer = customer;
+    private String track;
+
+    private double deliveryprice;
+
+    private double weight;
+
+    private String nameofgood;
+
+    public Orders( int price, String track, double deliveryprice, double weight, String nameofgood) {
         this.price = price;
+        this.track = track;
+        this.deliveryprice = deliveryprice;
+        this.weight = weight;
+        this.nameofgood = nameofgood;
     }
 }

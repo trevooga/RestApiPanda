@@ -39,4 +39,5 @@ public class UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"))
                 .getId();
     }
+
 }

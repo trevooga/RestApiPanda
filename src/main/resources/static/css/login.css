@@ -9,7 +9,47 @@ body {
     align-items: center;
     min-height: 100vh;
 }
+.alert-danger {
+    padding: 15px 20px;
+    margin: 15px 0;
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    font-size: 16px;
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+}
 
+/* Анимация появления */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.alert-danger:before {
+    content: none !important;
+}
+
+/* Стиль для крестика закрытия */
+.close-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #721c24;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0 8px;
+}
+/* Адаптивность */
+@media (max-width: 768px) {
+    .alert-danger {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
 /* Контейнер формы */
 .form-container {
     position: relative;

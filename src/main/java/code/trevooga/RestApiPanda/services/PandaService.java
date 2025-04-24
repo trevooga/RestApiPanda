@@ -6,7 +6,9 @@ import code.trevooga.RestApiPanda.Interfaces.OrdersRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+
 @Service
 public class PandaService {
 
@@ -18,7 +20,7 @@ public class PandaService {
     }
 
     @Transactional
-    public Orders addNewOrder(User customer, int price) {
-        return ordersRepo.save(new Orders(customer, price));
+    public Orders addNewOrder(int price, String track, double deliveryPrice, double weight, String nameofgood) {
+        return ordersRepo.save(new Orders(price, track, deliveryPrice, weight, nameofgood));
     }
 }
