@@ -23,5 +23,6 @@ jobs:
       with:
         java-version: '23'
         distribution: 'temurin'
-    - name: Build with Ant
-      run: ant -noinput -buildfile build.xml
+	cache: 'gradle'
+    - name: Build with Gradle
+	run: ./gradlew build --no-daemon
